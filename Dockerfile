@@ -33,6 +33,9 @@ COPY --from=builder /go/bin/air /usr/bin/air
 # 依存ライブラリを再インストール（ランタイム用）
 RUN apk update && apk add --no-cache git
 
+# 開発用ホットリロードに必要なファイルをマウント
+VOLUME /app
+
 EXPOSE 8080
 
 # デフォルトコマンドを air に設定

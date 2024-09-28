@@ -6,6 +6,12 @@ services:
     container_name: world-map-go-api
     ports:
       - "8080:8080"
+    volumes:
+      - .:/app
+      - air-temp:/app/tmp
     environment:
       - AIR_CONFIG=.air.toml
     command: air
+
+volumes:
+  air-temp:
