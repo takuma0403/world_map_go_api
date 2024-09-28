@@ -1,0 +1,9 @@
+# .air.toml
+[build]
+  bin = "main"
+  cmd = "go build -o ./main src/cmd/main.go"
+  include_ext = ["go"]
+  exclude_dir = ["vendor", "node_modules"]
+  exclude_file = []
+  follow_symlink = true
+  clear_log = false
