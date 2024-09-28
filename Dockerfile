@@ -5,7 +5,7 @@ FROM golang:1.23-alpine AS builder
 WORKDIR /app
 
 # 必要な依存ライブラリをインストール
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git openssl
 
 # 必要なファイルをコピー
 COPY go.mod go.sum ./
@@ -17,8 +17,8 @@ COPY . .
 # air のインストール
 RUN go install github.com/air-verse/air@latest
 
-# 開発用ステージにビルドアーティファクトを残しておく
-RUN go build -o main src/cmd/main.go
+# 自己署名証明書を作成（開発用）
+RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/CN=localhost"
 
 # 開発用の最終ステージ（Go環境も含む）
 FROM golang:1.23-alpine

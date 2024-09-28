@@ -15,5 +15,9 @@ func InitRouter() *gin.Engine {
 	// Hello World のルートを定義
 	router.GET("/hello", helloController.HelloWorld)
 
+	if err := router.RunTLS(":8080", "cert.pem", "key.pem"); err != nil {
+		panic(err)
+	}
+
 	return router
 }
